@@ -1,0 +1,15 @@
+/* 
+    Created on : 28/08/2018, 12:55:09
+    Author     : Felipe Savaris
+*/
+
+.m-b {
+    margin-bottom: 20px;
+}
+.container {
+    max-width: 962px;
+    margin: 0 auto;
+}
+form.inline > .mdl-textfield {
+    display: block;
+}
