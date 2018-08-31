@@ -15,5 +15,11 @@ public class LoginController {
     public String login() {
         return "loginCadastro/login";
     }
+    
+    //Possivel método a ser movido a outra classe
+    @RequestMapping("/cadastro")
+    public String cadastro() {
+        return "loginCadastro/cadastro";
+    }
    
 }
