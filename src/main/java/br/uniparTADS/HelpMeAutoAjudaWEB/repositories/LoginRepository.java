@@ -1,8 +1,10 @@
 package br.uniparTADS.HelpMeAutoAjudaWEB.repositories;
 
-import org.springframework.stereotype.Component;
+import br.uniparTADS.HelpMeAutoAjudaWEB.model.Usuario;
+import org.springframework.data.repository.CrudRepository;
 
-@Component
-public class LoginRepository {
+public interface LoginRepository extends CrudRepository<Usuario, String> {
+    
+    
     
 }
