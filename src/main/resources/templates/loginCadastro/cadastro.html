@@ -1,11 +1,11 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
     <h2>Cadastro</h2>
-    <form class="inline" method="post">
+    <form method="post" th:object='${Usuario}'>
         <div>
-            <input type="email" value="" placeholder="E-mail" name="email"/>
-            <input type="text" value="" placeholder="Nome de Usuário" name="nameUsr"/>
-            <input type="text" value="" placeholder="Nome Fictício" name="nameFic"/>
-            <input type="password" value="" placeholder="Senha" name="refSenha"/>
+            <input type="email" value="" placeholder="E-mail" th:field='*{email}'/>
+            <input type="text" value="" placeholder="Nome de Usuário" th:field='*{nameUsr}'/>
+            <input type="text" value="" placeholder="Nome Fictício" th:field='*{nameFic}'/>
+            <input type="password" value="" placeholder="Senha" th:field='*{refSenha}'/>
             <button type="submit">Cadastrar</button>
         </div>
     </form>

@@ -1,25 +1,22 @@
 package br.uniparTADS.HelpMeAutoAjudaWEB.model;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Usuario implements Serializable{
+public class Usuario{
     
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id_usuario;
-    
+    private Long id_usuario;    
     private String email;
     private String nameUsr;
     private String nameFan;
     private String refSenha;
 
+    public Usuario(Long id_usuario, String email, String nameUsr, String nameFan, String refSenha) {
+        this.id_usuario = id_usuario;
+        this.email = email;
+        this.nameUsr = nameUsr;
+        this.nameFan = nameFan;
+        this.refSenha = refSenha;
+    }
+    
+    
     public Long getId_usuario() {
         return id_usuario;
     }
