@@ -7,6 +7,8 @@ public class Usuario{
     private String nameUsr;
     private String nameFan;
     private String refSenha;
+    
+    public Usuario() {}
 
     public Usuario(Long id_usuario, String email, String nameUsr, String nameFan, String refSenha) {
         this.id_usuario = id_usuario;
@@ -15,7 +17,6 @@ public class Usuario{
         this.nameFan = nameFan;
         this.refSenha = refSenha;
     }
-    
     
     public Long getId_usuario() {
         return id_usuario;

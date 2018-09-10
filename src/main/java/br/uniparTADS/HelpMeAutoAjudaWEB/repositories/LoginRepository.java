@@ -12,17 +12,18 @@ public class LoginRepository {
     private JdbcTemplate template;
     
     //INSERT
-    public void salva(Usuario usuario) {
+    public void save(Usuario usuario) {
         String sql =
                 "insert into usuario(" +
                     "id_usuario, " +
                     "email, " +
-                    "name_usr, " +
-                    "name_fan, " +
-                    "ref_senha)" +
+                    "nameusr, " +
+                    "namefan, " +
+                    "refsenha)" +
                 "values(" +
                     "?, ?, ?, ?, ?)";
         
+        usuario.setId_usuario(1L);
         Object[] parameters = {
                 usuario.getId_usuario(),
                 usuario.getEmail(),
