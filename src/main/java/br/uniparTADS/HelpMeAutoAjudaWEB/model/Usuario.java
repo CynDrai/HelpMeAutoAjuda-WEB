@@ -1,13 +1,23 @@
 package br.uniparTADS.HelpMeAutoAjudaWEB.model;
 
-public class Usuario {
+public class Usuario{
     
-    private Long id_usuario;
+    private Long id_usuario;    
     private String email;
     private String nameUsr;
     private String nameFan;
-    private String senhaUsuario;
+    private String refSenha;
+    
+    public Usuario() {}
 
+    public Usuario(Long id_usuario, String email, String nameUsr, String nameFan, String refSenha) {
+        this.id_usuario = id_usuario;
+        this.email = email;
+        this.nameUsr = nameUsr;
+        this.nameFan = nameFan;
+        this.refSenha = refSenha;
+    }
+    
     public Long getId_usuario() {
         return id_usuario;
     }
@@ -40,11 +50,11 @@ public class Usuario {
         this.nameFan = nameFan;
     }
 
-    public String getSenhaUsuario() {
-        return senhaUsuario;
+    public String getRefSenha() {
+        return refSenha;
     }
 
-    public void setSenhaUsuario(String senhaUsuario) {
-        this.senhaUsuario = senhaUsuario;
-    }  
+    public void setRefSenha(String refSenha) {
+        this.refSenha = refSenha;
+    } 
 }
