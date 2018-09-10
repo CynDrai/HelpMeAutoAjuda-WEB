@@ -10,6 +10,7 @@ public class Usuario{
     
     public Usuario() {}
 
+
     public Usuario(Long id_usuario, String email, String nameUsr, String nameFan, String refSenha) {
         this.id_usuario = id_usuario;
         this.email = email;
