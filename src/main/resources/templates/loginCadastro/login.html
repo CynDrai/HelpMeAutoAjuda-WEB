@@ -2,11 +2,17 @@
     <h2>Tela de Login - Login Help Me!</h2><br>
         <!--Formulário de E-mail e Senha-->
         <form class="inline" method="get">
-            <div>
-                <input type="email" value="" placeholder="E-Mail" name="email"/>
-                <input type="password" value="" placeholder="Senha" name="senha"/>
-                <button type="submit">Login</button>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label class="mdl-textfield__label" for='email'>E-mail</label>
+                <input class="mdl-textfield__input" type="email"/>
             </div>
+            
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label class="mdl-textfield__label" for='refSenha'>Senha</label>
+                <input class="mdl-textfield__input" type="password"/>              
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised" type="submit">Login</button>
         </form>
+        <br>
         <a href="/cadastro">Cadastrar</a>
 </div>
