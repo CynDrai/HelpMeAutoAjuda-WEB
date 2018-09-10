@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +19,17 @@ public class LoginController {
     
     //Página Login
     @RequestMapping("/login")
-    public String login() {
-        return "loginCadastro/login";
+    public String login(Model model) {
+        model.addAttribute("page", "loginCadastro/login");
+        return "main";
     }
       
     //Página Cadastro
-    @RequestMapping("/cadastro")
-    public String cadastro(@PathVariable("codigo") Optional<Long> codigo, Model model) {
+    @GetMapping({"/cadastro", "/cadastro/{id_usuario}"})
+    public String cadastro(@PathVariable("id_usuario") Optional<Long> codigo, Model model) {
         model.addAttribute("cadastro", new Usuario());
-        return "loginCadastro/cadastro";
+        model.addAttribute("page", "loginCadastro/cadastro");
+        return "main";
     }
     
     //Insert Banco de dados

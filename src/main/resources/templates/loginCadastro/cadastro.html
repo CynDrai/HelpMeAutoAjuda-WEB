@@ -1,12 +1,26 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
     <h2>Cadastro</h2>
-    <form method="post" th:object='${cadastro}'>
-        <div>
-            <input type="email" value="" placeholder="E-mail" th:field='*{email}'/>
-            <input type="text" value="" placeholder="Nome de Usuário" th:field='*{nameUsr}'/>
-            <input type="text" value="" placeholder="Nome Fictício" th:field='*{nameFan}'/>
-            <input type="password" value="" placeholder="Senha" th:field='*{refSenha}'/>
-            <button type="submit">Cadastrar</button>
+    <form class="inline" method="post" th:object='${cadastro}'>     
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for='email'>E-mail</label>
+            <input class="mdl-textfield__input" type="email" th:field='*{email}'/>
+        </div>
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for='nameUsr'>Nome de Usuário</label>
+            <input class="mdl-textfield__input" type="text" th:field='*{nameUsr}'/>
+        </div>
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for='nameFan'>Nome Fictício</label>
+            <input class="mdl-textfield__input" type="text" th:field='*{nameFan}'/>
+        </div>
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for='refSenha'>Senha</label>
+            <input class="mdl-textfield__input" type="password" th:field='*{refSenha}'/>
+        </div>   
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Cadastrar</button>
         </div>
     </form>
 </div>
