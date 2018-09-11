@@ -36,7 +36,7 @@ public class LoginController {
     @PostMapping({"/cadastro", "/cadastro/{id_usuario}"})
     public String grava(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario) {
         loginRepository.save(usuario);
-        
+              
         return "redirect:/login";
     }
     
