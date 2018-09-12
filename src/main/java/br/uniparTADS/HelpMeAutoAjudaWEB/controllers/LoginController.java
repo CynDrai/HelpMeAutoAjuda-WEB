@@ -13,31 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
-    
+
     @Autowired
     private LoginRepository loginRepository;
     
+    private String tmpMsg;
+
     //Página Login
     @RequestMapping("/login")
     public String login(Model model) {
+        tmpMsg = null;
+        
         model.addAttribute("page", "loginCadastro/login");
         return "main";
     }
-      
+
     //Página Cadastro
     @GetMapping({"/cadastro", "/cadastro/{id_usuario}"})
     public String cadastro(@PathVariable("id_usuario") Optional<Long> codigo, Model model) {
         model.addAttribute("cadastro", new Usuario());
         model.addAttribute("page", "loginCadastro/cadastro");
+        model.addAttribute("msgError", tmpMsg);
+        tmpMsg = null;
         return "main";
     }
-    
+
     //Insert Banco de dados
     @PostMapping({"/cadastro", "/cadastro/{id_usuario}"})
-    public String grava(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario) {
-        loginRepository.save(usuario);
+    public String grava(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario, Model model) {
+        tmpMsg = loginRepository.save(usuario);
+
+        if (!tmpMsg.equals("*Cadastro feito com sucesso!")) {
+  
+            return "redirect:/cadastro";
+        }
         
         return "redirect:/login";
     }
-    
+
 }

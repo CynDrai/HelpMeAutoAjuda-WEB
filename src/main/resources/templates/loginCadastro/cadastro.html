@@ -1,26 +1,50 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
     <h2>Cadastro</h2>
-    <form class="inline" method="post" th:object='${cadastro}'>     
+    <form class="inline" method="post" th:object='${cadastro}'>
+        
+        <!--Label Indicando algum erro durante o Cadastro -->
+        <div th:switch='${msgError}'>
+            <p th:case='null'>
+                <!-- Possivel troca para CSS -->
+                <font size="4" face="Calibri">
+                    Faça Seu Cadastro!
+                </font>
+            </p>
+            
+            <p th:case='*'>
+                <!-- Possivel troca para CSS -->
+                <font size="4" face="Calibri" color="red">
+                    <span th:text='${msgError}'></span>
+                </font>
+            </p>
+        </div>
+        
+        <!-- Field E-mail -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label class="mdl-textfield__label" for='email'>E-mail</label>
             <input class="mdl-textfield__input" type="email" th:field='*{email}'/>
         </div>
         
+        <!-- Field Nome de Usuário -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label class="mdl-textfield__label" for='nameUsr'>Nome de Usuário</label>
             <input class="mdl-textfield__input" type="text" th:field='*{nameUsr}'/>
         </div>
         
+        <!-- Field Nome Fictício -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label class="mdl-textfield__label" for='nameFan'>Nome Fictício</label>
             <input class="mdl-textfield__input" type="text" th:field='*{nameFan}'/>
         </div>
         
+        <!-- Field Senha -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label class="mdl-textfield__label" for='refSenha'>Senha</label>
             <input class="mdl-textfield__input" type="password" th:field='*{refSenha}'/>
         </div>   
+        
+        <!-- Button Cadastrar -->
             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Cadastrar</button>
-        </div>
+    
     </form>
 </div>
