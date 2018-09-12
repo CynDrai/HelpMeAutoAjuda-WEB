@@ -16,28 +16,31 @@ public class LoginRepository {
 
     //INSERT
     public String save(Usuario usuario) {
-        String sql
-                = "insert into usuario("
-                    + "id_usuario, "
-                    + "email, "
-                    + "nameusr, "
-                    + "namefan, "
-                    + "refsenha)"
-                + "values("
-                    + "?, ?, ?, ?, ?)";
-
+        
         //Método Gerador de ID
         usuario.setId_usuario(GeneratorID.returnID());
-
-        byte bt = -1;
-
+        
+        //E-MAIL'S
+        //Empty
+        if(usuario.getEmail().isEmpty()) {
+            return "*O campo E-mail não pode estar vazio!";
+        }
+        
+        //E-mail com "@" e ".com"
+        if(usuario.getEmail().contains("@")) {
+            if(!usuario.getEmail().contains(".com")) {
+                return "*E-mail's devem conter @ e .com";
+            }
+        } else return "*E-mail's devem conter @ e .com";
+     
         //Verificador de E-mail e ID's já existentes
+        byte bt = -1;
         while (bt != 0) {
             
             bt = vrfEmailId(usuario.getEmail(), usuario.getId_usuario());
             
             if(bt == 1) {
-                return "Este E-mail já está em uso!";
+                return "*Este E-mail já está em uso!";
             }
             
             if(bt == 2) {
@@ -45,6 +48,47 @@ public class LoginRepository {
             }           
         }
         
+        //NOME DE USUÁRIOS
+        //Empty
+        if(usuario.getNameUsr().isEmpty()) {
+            return "*Insira um Nome de Usuário";
+        }
+        
+        //Verificador de Números
+        for (int a = 0; a < usuario.getNameUsr().length(); a++) {
+            if (Character.isDigit(usuario.getNameUsr().charAt(a))) {
+               return "*O campo Nome de Usuário não deve conter Números";
+            }
+        }
+        
+        //NOME FICTÍCIO
+        //Mímino de 4 caracteres
+        if(usuario.getNameFan().length() > 0 && usuario.getNameFan().length() < 4) {
+            return "*O Nome Fictício deve conter no mínimo 4 caracteres";
+        }
+        
+        //SENHA
+        //Empty
+        if(usuario.getRefSenha().isEmpty()) {
+            return "*Insira uma Senha!";
+        }
+        
+        //Mímino de 8 caracteres
+        if(usuario.getRefSenha().length() < 8) {
+            return "*A senha deve ter no mínimo 8 caracteres";
+        }
+          
+        //SQL
+        String sql= 
+                "insert into usuario("
+                    + "id_usuario, "
+                    + "email, "
+                    + "nameusr, "
+                    + "namefan, "
+                    + "refsenha)"
+                + "values("
+                    + "?, ?, ?, ?, ?)";
+            
         //Paramêtros SQL
         Object[] parameters = {
             usuario.getId_usuario(),
@@ -57,7 +101,7 @@ public class LoginRepository {
         //INSERT
         template.update(sql, parameters);
 
-        return "Cadastro feito com sucesso!";
+        return "*Cadastro feito com sucesso!";
 
     }
 
