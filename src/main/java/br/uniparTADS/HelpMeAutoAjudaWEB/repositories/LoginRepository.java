@@ -2,9 +2,9 @@ package br.uniparTADS.HelpMeAutoAjudaWEB.repositories;
 
 import br.uniparTADS.HelpMeAutoAjudaWEB.model.Usuario;
 import br.uniparTADS.HelpMeAutoAjudaWEB.util.GeneratorID;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -14,81 +14,141 @@ public class LoginRepository {
     @Autowired
     private JdbcTemplate template;
 
-    //INSERT
-    public String save(Usuario usuario) {
-        
-        //Método Gerador de ID
-        usuario.setId_usuario(GeneratorID.returnID());
-        
+    //SELECT
+    public String findLogin(Usuario login) {
+
         //E-MAIL'S
         //Empty
-        if(usuario.getEmail().isEmpty()) {
+        if (login.getEmail().isEmpty()) {
             return "*O campo E-mail não pode estar vazio!";
         }
-        
+
         //E-mail com "@" e ".com"
-        if(usuario.getEmail().contains("@")) {
-            if(!usuario.getEmail().contains(".com")) {
+        if (login.getEmail().contains("@")) {
+            if (!login.getEmail().contains(".com")) {
+                return "*Insira um E-mail válido!";
+            }
+        } else {
+            return "*Insira um E-mail válido";
+        }
+
+        //SENHA
+        //Empty
+        if (login.getRefSenha().isEmpty()) {
+            return "*O campo senha não pode estar vazio!";
+        }
+
+        //SQL
+        String sql
+                = "select * from usuario where "
+                + "email = ? and refsenha = ?";
+
+        //Paramêtros WHERE SQL
+        Object[] parameters = {
+            login.getEmail(),
+            login.getRefSenha()
+        };
+
+        Object tmp;
+        
+        try {
+
+            tmp = template.queryForObject(sql, parameters, new UsuariosRowMapper());
+            
+        //Caso os resultados do usuário não combinem
+        } catch (EmptyResultDataAccessException ex) {
+            
+            System.out.println("Erro Esperado!\n#####################\n" + ex.getMessage());
+            return "*E-mail ou Senha Incorretos";
+            
+        }
+               
+        Usuario.setUsuario((Usuario) tmp);
+        return "Login bem Sucedido\n"
+                + "Dados da Conta:->>>>>\n"
+                + "ID:  " + Usuario.getUsuario().getId_usuario() + "\n"
+                + "E-mail:  " + Usuario.getUsuario().getEmail() + "\n"
+                + "Nome de Usuário:    " + Usuario.getUsuario().getNameUsr() + "\n"
+                + "Nome Fictício:   " + Usuario.getUsuario().getNameFan(); 
+    }
+
+    //INSERT
+    public String save(Usuario usuario) {
+
+        //Método Gerador de ID
+        usuario.setId_usuario(GeneratorID.returnID());
+
+        //E-MAIL'S
+        //Empty
+        if (usuario.getEmail().isEmpty()) {
+            return "*O campo E-mail não pode estar vazio!";
+        }
+
+        //E-mail com "@" e ".com"
+        if (usuario.getEmail().contains("@")) {
+            if (!usuario.getEmail().contains(".com")) {
                 return "*E-mail's devem conter @ e .com";
             }
-        } else return "*E-mail's devem conter @ e .com";
-     
+        } else {
+            return "*E-mail's devem conter @ e .com";
+        }
+
         //Verificador de E-mail e ID's já existentes
         byte bt = -1;
         while (bt != 0) {
-            
+
             bt = vrfEmailId(usuario.getEmail(), usuario.getId_usuario());
-            
-            if(bt == 1) {
+
+            if (bt == 1) {
                 return "*Este E-mail já está em uso!";
             }
-            
-            if(bt == 2) {
+
+            if (bt == 2) {
                 usuario.setId_usuario(GeneratorID.returnID());
-            }           
+            }
         }
-        
+
         //NOME DE USUÁRIOS
         //Empty
-        if(usuario.getNameUsr().isEmpty()) {
+        if (usuario.getNameUsr().isEmpty()) {
             return "*Insira um Nome de Usuário";
         }
-        
+
         //Verificador de Números
         for (int a = 0; a < usuario.getNameUsr().length(); a++) {
             if (Character.isDigit(usuario.getNameUsr().charAt(a))) {
-               return "*O campo Nome de Usuário não deve conter Números";
+                return "*O campo Nome de Usuário não deve conter Números";
             }
         }
-        
+
         //NOME FICTÍCIO
         //Mímino de 4 caracteres
-        if(usuario.getNameFan().length() > 0 && usuario.getNameFan().length() < 4) {
+        if (usuario.getNameFan().length() > 0 && usuario.getNameFan().length() < 4) {
             return "*O Nome Fictício deve conter no mínimo 4 caracteres";
         }
-        
+
         //SENHA
         //Empty
-        if(usuario.getRefSenha().isEmpty()) {
+        if (usuario.getRefSenha().isEmpty()) {
             return "*Insira uma Senha!";
         }
-        
+
         //Mímino de 8 caracteres
-        if(usuario.getRefSenha().length() < 8) {
+        if (usuario.getRefSenha().length() < 8) {
             return "*A senha deve ter no mínimo 8 caracteres";
         }
-          
+
         //SQL
-        String sql= 
-                "insert into usuario("
-                    + "id_usuario, "
-                    + "email, "
-                    + "nameusr, "
-                    + "namefan, "
-                    + "refsenha)"
-                + "values("
-                    + "?, ?, ?, ?, ?)";
-            
+        String sql = 
+                "insert into usuario(" +
+                    "id_usuario, " +
+                    "email, " +
+                    "nameusr, " +
+                    "namefan, " +
+                    "refsenha)" +
+                "values(" +
+                    "?, ?, ?, ?, ?)";
+
         //Paramêtros SQL
         Object[] parameters = {
             usuario.getId_usuario(),
@@ -108,7 +168,7 @@ public class LoginRepository {
     //Verificador de E-mail e ID's repetidos
     public byte vrfEmailId(String email, Long id) {
 
-        List al = new ArrayList();
+        List al;
 
         String sql
                 = "select * from usuario where "

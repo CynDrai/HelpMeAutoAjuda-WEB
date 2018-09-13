@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
@@ -20,17 +19,26 @@ public class LoginController {
     private String tmpMsg;
 
     //Página Login
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login(Model model) {
-        tmpMsg = null;
-        
+        model.addAttribute("login", new Usuario());
         model.addAttribute("page", "loginCadastro/login");
+        model.addAttribute("msgError", tmpMsg);
+        tmpMsg = null;
         return "main";
+    }
+    
+    //Select Banco de dados
+    @PostMapping({"/login", "/login/{id_usuario}"})
+    public String findLogin(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario) {
+        tmpMsg = loginRepository.findLogin(usuario);
+                        
+        return "redirect:/login";
     }
 
     //Página Cadastro
-    @GetMapping({"/cadastro", "/cadastro/{id_usuario}"})
-    public String cadastro(@PathVariable("id_usuario") Optional<Long> codigo, Model model) {
+    @GetMapping("/cadastro")
+    public String cadastro(Model model) {
         model.addAttribute("cadastro", new Usuario());
         model.addAttribute("page", "loginCadastro/cadastro");
         model.addAttribute("msgError", tmpMsg);
@@ -40,7 +48,7 @@ public class LoginController {
 
     //Insert Banco de dados
     @PostMapping({"/cadastro", "/cadastro/{id_usuario}"})
-    public String grava(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario, Model model) {
+    public String grava(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario) {
         tmpMsg = loginRepository.save(usuario);
 
         if (!tmpMsg.equals("*Cadastro feito com sucesso!")) {
