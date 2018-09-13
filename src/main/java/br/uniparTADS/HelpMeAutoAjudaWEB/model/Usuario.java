@@ -8,6 +8,9 @@ public class Usuario{
     private String nameFan;
     private String refSenha;
     
+    //Instância do atual Usuário
+    private static Usuario usuario;
+    
     public Usuario() {}
 
 
@@ -58,4 +61,13 @@ public class Usuario{
     public void setRefSenha(String refSenha) {
         this.refSenha = refSenha;
     } 
+
+    //Instância do Usuário atual
+    public static Usuario getUsuario() {
+        return usuario;
+    }
+
+    public static void setUsuario(Usuario usuario) {
+        Usuario.usuario = usuario;
+    }
 }
