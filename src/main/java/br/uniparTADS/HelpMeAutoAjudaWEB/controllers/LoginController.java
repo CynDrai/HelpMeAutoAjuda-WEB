@@ -33,7 +33,7 @@ public class LoginController {
     public String findLogin(@PathVariable("id_usuario") Optional<Long> codigo, Usuario usuario) {
         tmpMsg = loginRepository.findLogin(usuario);
                         
-        return "redirect:/login";
+        return "redirect:/category";
     }
 
     //Página Cadastro
