@@ -1,19 +1,30 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-    <h2>Página teste Categoria</h2>
-    <form class="inline">
-        <div class="mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title">
-                <p style="color: green; font-size: 20pt; font: bold 20pt Calibri;">Teste</p>
-            </div>
-            <div class="mdl-card__supporting-text">
-                The Sky Tower is an observation and telecommunications tower located in Auckland,
-                New Zealand. It is 328 metres (1,076 ft) tall, making it the tallest man-made structure
-                in the Southern Hemisphere.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="/login">Voltar</a>
-            </div>
-        </div>
-    </form>
-
+    <h2>Seleção de Categoria</h2>
+    <table>
+        <!-- Table HEAD -->
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome Categoria</th>
+            </tr>
+        </thead>
+        <!-- Table BODY -->
+        <tbody>
+            <!-- For Each listCategories -->
+            <tr th:each="categoria : ${categorias}">
+                <!-- ID_CATEGORY CELL -->
+                <td th:text="${categoria.id_category}"></td>
+                <!-- Category Name CELL -->
+                <td th:text="${categoria.nomeCategoria}"></td>
+                <td>
+                    <!-- HREF Category -->
+                    <a th:href='@{/category/{id_category}(id_category=${categoria.id_category})}'>
+                        <i>Entrar</i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="/login">Voltar ao Login!</a>
 </div>
