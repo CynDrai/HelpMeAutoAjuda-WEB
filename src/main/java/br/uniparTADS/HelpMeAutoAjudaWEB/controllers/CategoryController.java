@@ -1,5 +1,7 @@
 package br.uniparTADS.HelpMeAutoAjudaWEB.controllers;
 
+import br.uniparTADS.HelpMeAutoAjudaWEB.model.Category;
+import br.uniparTADS.HelpMeAutoAjudaWEB.model.Usuario;
 import br.uniparTADS.HelpMeAutoAjudaWEB.repositories.CategoryRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
+    
     //Página de Seleção de Categoria
     @GetMapping("/category")
     public String category(Model model) {
@@ -26,12 +28,16 @@ public class CategoryController {
 
     //Código de Categoria Especifíca Selecionada
     @GetMapping("/category/{id_category}")
-    public String rediCategory(
-            @PathVariable("id_category") Optional<Integer> idCategory) {
+    public String redirectCategory(
+            @PathVariable("id_category") Optional<Integer> idCategory,
+            Model model) {
         
-        if(idCategory.isPresent()) System.out.println("Código da Categoria -> " + idCategory.get());
-
-        //Redirect Temporário
-        return "redirect:/category";
-    }
+        categoryRepository.dataCategory(idCategory.get());
+        
+        model.addAttribute("msgCategory", "Categoria: " + Category.getCategory().getNomeCategoria());
+        model.addAttribute("msgUser", "Usuário: " + Usuario.getUsuario().getNameUsr());
+        model.addAttribute("page", "categories/category");
+        
+        return "main";
+    }   
 }

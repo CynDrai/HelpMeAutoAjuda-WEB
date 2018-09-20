@@ -4,6 +4,9 @@ public class Category {
 
     private Integer id_category;
     private String nomeCategoria;
+    
+    //Atual Instância de Categoria
+    private static Category category;
 
     public Category () {}
     
@@ -26,5 +29,14 @@ public class Category {
 
     public void setNomeCategoria(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
-    }   
+    }
+
+    //Atual Instância de Categoria
+    public static Category getCategory() {
+        return category;
+    }
+
+    public static void setCategory(Category category) {
+        Category.category = category;
+    }
 }

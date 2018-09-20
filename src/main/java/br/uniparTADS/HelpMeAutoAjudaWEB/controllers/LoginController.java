@@ -30,6 +30,11 @@ public class LoginController {
     @PostMapping("/login")
     public String findLogin(Usuario usuario) {
         tmpMsg = loginRepository.findLogin(usuario);
+        
+        //Se houver mensagem de erro
+        if(tmpMsg != null) {
+            return "redirect:/login";
+        }
                         
         return "redirect:/category";
     }

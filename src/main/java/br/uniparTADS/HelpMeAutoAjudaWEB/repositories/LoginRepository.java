@@ -1,5 +1,6 @@
 package br.uniparTADS.HelpMeAutoAjudaWEB.repositories;
 
+import br.uniparTADS.HelpMeAutoAjudaWEB.repositories.rowmapper.UsuariosRowMapper;
 import br.uniparTADS.HelpMeAutoAjudaWEB.model.Usuario;
 import br.uniparTADS.HelpMeAutoAjudaWEB.util.GeneratorID;
 import java.util.List;
@@ -63,13 +64,9 @@ public class LoginRepository {
             
         }
                
+        //Login bem Sucedido
         Usuario.setUsuario((Usuario) tmp);
-        return "Login bem Sucedido\n"
-                + "Dados da Conta:->>>>>\n"
-                + "ID:  " + Usuario.getUsuario().getId_usuario() + "\n"
-                + "E-mail:  " + Usuario.getUsuario().getEmail() + "\n"
-                + "Nome de Usuário:    " + Usuario.getUsuario().getNameUsr() + "\n"
-                + "Nome Fictício:   " + Usuario.getUsuario().getNameFan(); 
+        return null;
     }
 
     //INSERT
