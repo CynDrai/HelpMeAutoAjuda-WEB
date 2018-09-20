@@ -1,0 +1,30 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+    <h2>Seleção de Categoria</h2>
+    <table>
+        <!-- Table HEAD -->
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome Categoria</th>
+            </tr>
+        </thead>
+        <!-- Table BODY -->
+        <tbody>
+            <!-- For Each listCategories -->
+            <tr th:each="categoria : ${categorias}">
+                <!-- ID_CATEGORY CELL -->
+                <td th:text="${categoria.id_category}"></td>
+                <!-- Category Name CELL -->
+                <td th:text="${categoria.nomeCategoria}"></td>
+                <td>
+                    <!-- HREF Category -->
+                    <a th:href='@{/category/{id_category}(id_category=${categoria.id_category})}'>
+                        <i>Entrar</i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="/login">Voltar ao Login!</a>
+</div>
