@@ -1,4 +1,4 @@
-package br.uniparTADS.HelpMeAutoAjudaWEB.repositories;
+package br.uniparTADS.HelpMeAutoAjudaWEB.repositories.rowmapper;
 
 import br.uniparTADS.HelpMeAutoAjudaWEB.model.Usuario;
 import java.sql.ResultSet;
