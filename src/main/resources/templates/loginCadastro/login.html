@@ -1,16 +1,38 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-    <h2>Tela de Login - Login Help Me!</h2><br>
-        <!--Formulário de E-mail e Senha-->
-        <form class="inline" method="post" th:object='${login}'>
-            
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>HelpMe!<span>Login</span></div>
+    </div>
+    <br>
+    <!--Formulário de E-mail e Senha-->
+    <div class="login">
+        <!-- Form -->
+        <form method="post" th:object='${login}'>
+
+            <div>
+                <!-- Field E-mail -->
+                <input type="email" placeholder="E-mail" th:field='*{email}'/>
+
+                <!-- Field Senha -->
+                <input type="password" placeholder="Senha" th:field='*{refSenha}'/>              
+
+                <!-- Button Login -->
+                <button type="submit">Login</button>
+
+            </div>
+                
+            <!-- Msg Error -->
             <div th:switch='${msgError}'>
+                <!-- Begin -->
                 <p th:case='null'>
                     <!-- Possivel troca para CSS -->
-                    <font size="4" face="Calibri">
+                    <font size="4" face="Calibri" color="red">
                         Faça o Login!
                     </font>
                 </p>
-            
+
+                <!-- Error Message -->
                 <p th:case='*'>
                     <!-- Possivel troca para CSS -->
                     <font size="4" face="Calibri" color="red">
@@ -18,22 +40,8 @@
                     </font>
                 </p>
             </div>
-            
-            <!-- Field E-mail -->
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <label class="mdl-textfield__label" for='email'>E-mail</label>
-                <input class="mdl-textfield__input" type="email" th:field='*{email}'/>
-            </div>
-            
-            <!-- Field Senha -->
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <label class="mdl-textfield__label" for='refSenha'>Senha</label>
-                <input class="mdl-textfield__input" type="password" th:field='*{refSenha}'/>              
-            </div>
-            
-            <!-- Button Login -->
-            <button class="mdl-button mdl-js-button mdl-button--raised" type="submit">Login</button>
-        </form>
-        <br>
-        <a href="/cadastro">Cadastrar</a>
+                
+                <a href="/cadastro">Cadastrar</a>
+            </form>
+        </div>     
 </div>
