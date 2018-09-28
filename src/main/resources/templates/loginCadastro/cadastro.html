@@ -1,52 +1,209 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-    <h2>Cadastro</h2>
-    <form class="inline" method="post" th:object='${cadastro}'>
+    <!-- CSS -->
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+        body{
+            margin: 0;
+            padding: 0;
+            background: #fff;
+
+            color: #fff;
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        .body{
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -40px;
+            bottom: -40px;
+            width: auto;
+            height: auto;
+            background-image: url(https://c.wallhere.com/photos/70/d1/nikon_nikond600_nikkor_nikond610_d610_d61024120mmf4_24120mmafs_people-631395.jpg!d);
+            background-size: cover;
+            -webkit-filter: blur(5px);
+            z-index: 0;
+        }
+
+        .grad{
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -40px;
+            bottom: -40px;
+            width: auto;
+            height: auto;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .header{
+            position: absolute;
+            top: calc(30% - 35px);
+            left: calc(61% - 255px);
+            z-index: 1;
+        }
+
+        .header div{
+            float: left;
+            color: #000000;
+            font-family: 'Exo', sans-serif;
+            font-size: 35px;
+            font-weight: 200;
+        }
+
+        .header div span{
+            color: #3a6ce0 !important;
+        }
+
+        .login{
+            position: absolute;
+            top: calc(50% - 75px);
+            left: calc(45% - 50px);
+            height: 150px;
+            width: 350px;
+            padding: 10px;
+            z-index: 2;
+        }
+
+        .login input[type=text]{
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 2px;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 4px;
+        }
         
-        <!--Label Indicando algum erro durante o Cadastro -->
-        <div th:switch='${msgError}'>
-            <p th:case='null'>
-                <!-- Possivel troca para CSS -->
-                <font size="4" face="Calibri">
-                    Faça Seu Cadastro!
-                </font>
-            </p>
-            
-            <p th:case='*'>
-                <!-- Possivel troca para CSS -->
-                <font size="4" face="Calibri" color="red">
-                    <span th:text='${msgError}'></span>
-                </font>
-            </p>
-        </div>
-        
-        <!-- Field E-mail -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <label class="mdl-textfield__label" for='email'>E-mail</label>
-            <input class="mdl-textfield__input" type="email" th:field='*{email}'/>
-        </div>
-        
-        <!-- Field Nome de Usuário -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <label class="mdl-textfield__label" for='nameUsr'>Nome de Usuário</label>
-            <input class="mdl-textfield__input" type="text" th:field='*{nameUsr}'/>
-        </div>
-        
-        <!-- Field Nome Fictício -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <label class="mdl-textfield__label" for='nameFan'>Nome Fictício</label>
-            <input class="mdl-textfield__input" type="text" th:field='*{nameFan}'/>
-        </div>
-        
-        <!-- Field Senha -->
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <label class="mdl-textfield__label" for='refSenha'>Senha</label>
-            <input class="mdl-textfield__input" type="password" th:field='*{refSenha}'/>
-        </div>   
-        
-        <!-- Button Cadastrar -->
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Cadastrar</button>
-    
-    </form>
-    <br>
-    <a href='/login'>Voltar para Login</a>
+        .login input[type=email]{
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 2px;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 4px;
+        }
+
+        .login input[type=password]{
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 2px;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 4px;
+            margin-top: 10px;
+        }
+
+        .login button[type=submit]{
+            width: 260px;
+            height: 35px;
+            background: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 2px;
+            color: #a18d6c;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 6px;
+            margin-top: 10px;
+        }
+
+        .login button[type=submit]:hover{
+            opacity: 0.8;
+        }
+
+        .login button[type=submit]:active{
+            opacity: 0.6;
+        }
+
+        .login input[type=text]:focus{
+            outline: none;
+            border: 1px solid rgba(255,255,255,0.9);
+        }
+
+        .login input[type=password]:focus{
+            outline: none;
+            border: 1px solid rgba(255,255,255,0.9);
+        }
+
+        .login input[type=button]:focus{
+            outline: none;
+        }
+
+        ::-webkit-input-placeholder{
+            color: rgba(255,255,255,0.6);
+        }
+
+        ::-moz-input-placeholder{
+            color: rgba(255,255,255,0.6);
+        }
+
+        div.tres {
+            width:15px;
+            height:15px;
+            border: 100px solid; /* As 4 bordas sólidas com 25px de espessura */
+            border-color: black black black black; /* cores: topo, direita, inferior, esquerda */
+            opacity: 0.8 
+                align: top;
+    </style>
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>HelpMe!<span>Cadastro</span></div>
+    </div>
+    <div class="login">
+        <form method="post" th:object='${cadastro}'>
+
+            <!-- Field E-mail -->
+            <input type="email" placeholder="E-mail" th:field='*{email}'/><br></br>
+
+            <!-- Field Nome de Usuário -->
+            <input type="text" placeholder="Nome de Usuário" th:field='*{nameUsr}'/><br></br>
+
+            <!-- Field Nome Fictício -->
+            <input type="text" placeholder="Nome Fictício" th:field='*{nameFan}'/><br>
+
+            <!-- Field Senha -->
+            <input type="password" placeholder="Senha" th:field='*{refSenha}'/><br></br>
+
+            <!-- Button Cadastrar -->
+           <button type="submit">Cadastrar</button>
+
+            <!--Label Indicando algum erro durante o Cadastro -->
+            <div th:switch='${msgError}'>
+                <p th:case='null'>
+                    <!-- Possivel troca para CSS -->
+                    <font size="4" face="Calibri">
+                        Faça Seu Cadastro!
+                    </font>
+                </p>
+
+                <p th:case='*'>
+                    <!-- Possivel troca para CSS -->
+                    <font size="4" face="Calibri" color="red">
+                        <span th:text='${msgError}'></span>
+                    </font>
+                </p>
+            </div>
+        </form>
+        <br>
+        <a href='/login'>Voltar para Login</a>
+    </div>
 </div>
